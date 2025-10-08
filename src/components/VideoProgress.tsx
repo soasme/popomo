@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import ControlButton from './ControlButton';
+import DownloadProgressToast from './DownloadProgressToast';
 
 interface VideoProgressProps {
   totalTime?: string;
@@ -31,6 +32,7 @@ export default function VideoProgress({ totalTime: propTotalTime, onHelpOpen }: 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [totalTime, setTotalTime] = useState(propTotalTime || '00:01:00');
+  const [showDownloadToast, setShowDownloadToast] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -77,6 +79,10 @@ export default function VideoProgress({ totalTime: propTotalTime, onHelpOpen }: 
     setCurrentTime(value);
   };
 
+  const startVideoRender = () => {
+    setShowDownloadToast(true);
+  };
+
   useEffect(() => {
     if (isPlaying) {
       intervalRef.current = setInterval(() => {
@@ -107,6 +113,9 @@ export default function VideoProgress({ totalTime: propTotalTime, onHelpOpen }: 
       if (e.code === 'Space') {
         e.preventDefault();
         setIsPlaying(prev => !prev);
+      } else if (e.altKey && e.code === 'KeyD') {
+        e.preventDefault();
+        startVideoRender();
       }
     };
 
@@ -117,8 +126,14 @@ export default function VideoProgress({ totalTime: propTotalTime, onHelpOpen }: 
   const progressPercentage = totalSeconds > 0 ? (currentTime / totalSeconds) * 100 : 0;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg p-4 z-40">
-      <div className="max-w-4xl mx-auto flex items-center gap-4">
+    <>
+      <DownloadProgressToast
+        isVisible={showDownloadToast}
+        onClose={() => setShowDownloadToast(false)}
+      />
+      
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg p-4 z-40">
+        <div className="max-w-4xl mx-auto flex items-center gap-4">
         <span className="text-sm font-mono text-gray-600 min-w-[80px]">
           {secondsToTimeString(currentTime, true)}
         </span>
@@ -166,6 +181,26 @@ export default function VideoProgress({ totalTime: propTotalTime, onHelpOpen }: 
         </span>
         
         <button
+          onClick={startVideoRender}
+          className="ml-2 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
+          title="Download Video (Alt+D)"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
+          </svg>
+        </button>
+        
+        <button
           onClick={onHelpOpen}
           className="ml-2 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
           title="Keyboard Shortcuts (?)"
@@ -184,7 +219,8 @@ export default function VideoProgress({ totalTime: propTotalTime, onHelpOpen }: 
             />
           </svg>
         </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
