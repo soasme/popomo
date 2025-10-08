@@ -3,16 +3,17 @@
 import { useEffect, useRef } from 'react';
 import * as Blockly from 'blockly';
 
-interface BlocklyPanelProps {
-  isActive: boolean;
+interface BlocklyWorkspaceProps {
+  isVisible: boolean;
 }
 
-export default function BlocklyPanel({ isActive }: BlocklyPanelProps) {
+export default function BlocklyWorkspace({ isVisible }: BlocklyWorkspaceProps) {
   const blocklyDiv = useRef<HTMLDivElement>(null);
   const workspace = useRef<Blockly.WorkspaceSvg | null>(null);
 
   useEffect(() => {
-    if (isActive && blocklyDiv.current && !workspace.current) {
+    if (isVisible && blocklyDiv.current && !workspace.current) {
+      // Initialize Blockly workspace
       workspace.current = Blockly.inject(blocklyDiv.current, {
         toolbox: {
           kind: 'categoryToolbox',
@@ -83,18 +84,41 @@ export default function BlocklyPanel({ isActive }: BlocklyPanelProps) {
         },
         trashcan: true,
       });
+
+      // Trigger resize after a short delay to ensure proper rendering
+      setTimeout(() => {
+        if (workspace.current) {
+          Blockly.svgResize(workspace.current);
+        }
+      }, 50);
     }
 
+    // Cleanup function
     return () => {
-      if (workspace.current && !isActive) {
+      if (!isVisible && workspace.current) {
         workspace.current.dispose();
         workspace.current = null;
       }
     };
-  }, [isActive]);
+  }, [isVisible]);
+
+  // Handle resize when visibility changes
+  useEffect(() => {
+    if (isVisible && workspace.current) {
+      setTimeout(() => {
+        if (workspace.current) {
+          Blockly.svgResize(workspace.current);
+        }
+      }, 100);
+    }
+  }, [isVisible]);
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
-    <div className="flex-1">
+    <div className="w-full h-full">
       <div ref={blocklyDiv} className="w-full h-full" />
     </div>
   );
