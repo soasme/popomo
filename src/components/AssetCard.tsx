@@ -51,6 +51,7 @@ export default function AssetCard({ asset, onDelete }: AssetCardProps) {
     <div className="border rounded-lg p-4 bg-gray-50">
       {asset.type === 'image' && (
         <div className="mb-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={createImagePreview(asset.data)}
             alt={asset.name}

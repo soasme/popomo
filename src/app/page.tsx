@@ -64,7 +64,7 @@ export default function LandingPage() {
           <h2 className="text-3xl font-bold text-gray-900 mb-6">✨ Why Popomo</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-bold text-gray-900 mb-2">Tell a story, don't rig/animate.</h3>
+              <h3 className="font-bold text-gray-900 mb-2">Tell a story, don&apos;t rig/animate.</h3>
               <p className="text-gray-600">Use blocks like On Start → Wait → Cue → Move → Tilt to perform scenes.</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-sm border">
@@ -152,7 +152,7 @@ export default function LandingPage() {
             </table>
           </div>
           <p className="text-center text-lg font-medium text-gray-900 mt-6">
-            You don't edit videos — you perform them.
+            You don&apos;t edit videos — you perform them.
           </p>
         </section>
 
@@ -171,7 +171,7 @@ export default function LandingPage() {
 
         {/* Who It's For */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">💬 Who It's For</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">💬 Who It&apos;s For</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <h3 className="font-bold text-gray-900 mb-2">Kids & Teachers:</h3>
@@ -198,7 +198,7 @@ export default function LandingPage() {
           <div className="space-y-6">
             <div>
               <h3 className="font-bold text-gray-900 mb-2">Do I need animation skills?</h3>
-              <p className="text-gray-600">No. You'll use simple blocks and cues.</p>
+              <p className="text-gray-600">No. You&apos;ll use simple blocks and cues.</p>
             </div>
             <div>
               <h3 className="font-bold text-gray-900 mb-2">Can I use my own art?</h3>
@@ -206,7 +206,7 @@ export default function LandingPage() {
             </div>
             <div>
               <h3 className="font-bold text-gray-900 mb-2">Will it be expensive?</h3>
-              <p className="text-gray-600">It's totally free and open source. We offer premium assets, but you can totally use your own assets.</p>
+              <p className="text-gray-600">It&apos;s totally free and open source. We offer premium assets, but you can totally use your own assets.</p>
             </div>
           </div>
         </section>

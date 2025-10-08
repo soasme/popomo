@@ -73,7 +73,7 @@ export default function AssetManager({ isOpen, onClose }: AssetManagerProps) {
         <div className="flex-1 overflow-auto p-4">
           {assets.length === 0 ? (
             <div className="text-center text-gray-500 py-8">
-              No assets uploaded yet. Click "Upload Files" to add PNG images or MP3 audio files.
+              No assets uploaded yet. Click &quot;Upload Files&quot; to add PNG images or MP3 audio files.
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
