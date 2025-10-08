@@ -121,8 +121,8 @@ export default function FloatingPanel({ onHelpOpen }: FloatingPanelProps) {
 
   const getPanelTitle = () => {
     switch (activePanel) {
-      case 'blockly': return 'Blockly Programming';
-      case 'assets': return 'Asset Manager';
+      case 'blockly': return 'Code';
+      case 'assets': return 'Assets';
       case 'settings': return 'Project Settings';
       default: return '';
     }

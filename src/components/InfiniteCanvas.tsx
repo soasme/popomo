@@ -1,9 +1,11 @@
 'use client';
 
-import { Stage, Layer, Rect } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 import { useRef, useState, useCallback } from 'react';
 import Konva from 'konva';
 import Camera from './Camera';
+import InfiniteCanvasTimeline from './InfiniteCanvasTimeline';
+import InfiniteCanvasGrid from './InfiniteCanvasGrid';
 
 interface InfiniteCanvasProps {
   width: number;
@@ -52,51 +54,25 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
   }, []);
 
   return (
-    <Stage
-      ref={stageRef}
-      width={width}
-      height={height}
-      x={stagePos.x}
-      y={stagePos.y}
-      scaleX={scale}
-      scaleY={scale}
-      draggable
-      onWheel={handleWheel}
-      onDragEnd={handleDragEnd}
-      className="bg-gray-50"
-    >
-      <Layer>
-        <Rect
-          x={-5000}
-          y={-5000}
-          width={10000}
-          height={10000}
-          fill="#f8f9fa"
-          stroke="#e9ecef"
-          strokeWidth={1}
-        />
-        {Array.from({ length: 100 }, (_, i) => (
-          <Rect
-            key={`h-${i}`}
-            x={-5000}
-            y={i * 100 - 5000}
-            width={10000}
-            height={1}
-            fill="#dee2e6"
-          />
-        ))}
-        {Array.from({ length: 100 }, (_, i) => (
-          <Rect
-            key={`v-${i}`}
-            x={i * 100 - 5000}
-            y={-5000}
-            width={1}
-            height={10000}
-            fill="#dee2e6"
-          />
-        ))}
-        <Camera />
-      </Layer>
-    </Stage>
+    <InfiniteCanvasTimeline>
+      <Stage
+        ref={stageRef}
+        width={width}
+        height={height}
+        x={stagePos.x}
+        y={stagePos.y}
+        scaleX={scale}
+        scaleY={scale}
+        draggable
+        onWheel={handleWheel}
+        onDragEnd={handleDragEnd}
+        className="bg-gray-50"
+      >
+        <Layer>
+          <InfiniteCanvasGrid />
+          <Camera />
+        </Layer>
+      </Stage>
+    </InfiniteCanvasTimeline>
   );
 }

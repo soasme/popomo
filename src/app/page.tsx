@@ -1,16 +1,26 @@
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Logo and Brand */}
+      <div className="flex items-center px-6 py-4">
+        <img 
+          src="/PopomoLogo.png" 
+          alt="Popomo Logo" 
+          className="w-8 h-8 mr-3"
+        />
+        <span className="text-2xl font-bold text-gray-900">Popomo</span>
+      </div>
+      
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
         <header className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
             Program Your Puppets Alive
           </h1>
-          <p className="text-2xl text-gray-700 mb-2">Tell stories. Not keyframes.</p>
+          <p className="text-2xl text-gray-700 mb-2">Tell stories using stickers.</p>
           <p className="text-lg text-gray-600 mb-8">
             Bring stickers to life with playful, Scratch-style blocks.<br />
-            Make puppet-show videos like PokéRhyme or LaDaDee — no rigging, no AI cost.
+            Make puppet-show videos like PokéRhyme or LaDaDee(PMV) — no rigging, no keyframes.
           </p>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLScA3ILbcqbZiymU8CX0Vem579nE62BZzLq33qs4SBNJNgn36A/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors">
             Join the Early Crew → (first 100 testers)
