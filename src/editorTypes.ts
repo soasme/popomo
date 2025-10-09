@@ -104,3 +104,30 @@ export interface CodeObjectSelectorProps {
   onSelectionChange: (id: string) => void;
   availableCodeObjects: AnyCodeObject[];
 }
+
+// ================================
+// BLOCKLY COMPONENT PROPS
+// ================================
+
+export interface BlocklyCategory {
+  name: string;
+  color: string;
+}
+
+export interface BlocklyNavbarProps {
+  selectedCategory: string | null;
+  onCategorySelect: (category: string) => void;
+  categories?: BlocklyCategory[];
+}
+
+export interface BlocklyBlocksProps {
+  selectedCategory: string | null;
+  onBlockSelect?: (blockType: string) => void;
+  isVisible?: boolean;
+}
+
+export interface BlocklyProgramingAreaProps {
+  isVisible: boolean;
+  onWorkspaceChange?: (event: any) => void;
+  selectedBlock?: string;
+}
