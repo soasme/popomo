@@ -42,7 +42,7 @@ export default function DownloadProgressToast({ isVisible, onClose }: DownloadPr
     if (isVisible && !renderVideo.isRendering) {
       renderVideo.startRender();
     }
-  }, [isVisible]);
+  }, [isVisible, renderVideo]);
 
   const handleClose = () => {
     renderVideo.cancelRender();

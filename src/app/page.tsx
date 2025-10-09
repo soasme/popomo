@@ -1,12 +1,16 @@
+import Image from 'next/image';
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Logo and Brand */}
       <div className="flex items-center px-6 py-4">
-        <img 
+        <Image 
           src="/PopomoLogo.png" 
           alt="Popomo Logo" 
-          className="w-8 h-8 mr-3"
+          width={32}
+          height={32}
+          className="mr-3"
         />
         <span className="text-2xl font-bold text-gray-900">Popomo</span>
       </div>

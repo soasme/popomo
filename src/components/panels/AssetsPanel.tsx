@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AssetCard, { type Asset } from '../AssetCard';
 import AssetUploader from '../AssetUploader';
 import { useAssetDB } from '@/hooks/useAssetDB';
@@ -14,20 +14,20 @@ export default function AssetsPanel({ isActive }: AssetsPanelProps) {
   const [isUploading, setIsUploading] = useState(false);
   const { saveAssets, loadAssets, deleteAsset } = useAssetDB();
 
-  useEffect(() => {
-    if (isActive) {
-      handleLoadAssets();
-    }
-  }, [isActive]);
-
-  const handleLoadAssets = async () => {
+  const handleLoadAssets = useCallback(async () => {
     try {
       const loadedAssets = await loadAssets();
       setAssets(loadedAssets);
     } catch (error) {
       console.error('Failed to load assets:', error);
     }
-  };
+  }, [loadAssets]);
+
+  useEffect(() => {
+    if (isActive) {
+      handleLoadAssets();
+    }
+  }, [isActive, handleLoadAssets]);
 
   const handleUpload = async (newAssets: Asset[]) => {
     setIsUploading(true);
@@ -58,7 +58,7 @@ export default function AssetsPanel({ isActive }: AssetsPanelProps) {
       <div className="flex-1 overflow-auto p-4">
         {assets.length === 0 ? (
           <div className="text-center text-gray-500 py-8">
-            No assets uploaded yet. Click "Upload Files" to add PNG images or MP3 audio files.
+            No assets uploaded yet. Click &quot;Upload Files&quot; to add PNG images or MP3 audio files.
           </div>
         ) : (
           <div className="flex flex-col gap-2">

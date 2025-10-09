@@ -24,7 +24,7 @@ export default function Home() {
     window.addEventListener('resize', updateDimensions);
 
     return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
+  }, [setDimensions]);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">

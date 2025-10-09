@@ -10,6 +10,7 @@ interface RenderVideoProps {
 
 export default function RenderVideo({ onProgress, onComplete, onError }: RenderVideoProps) {
   const [isRendering, setIsRendering] = useState(false);
+  const [currentProgress, setCurrentProgress] = useState(0);
   const renderIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const startRender = () => {
@@ -39,16 +40,18 @@ export default function RenderVideo({ onProgress, onComplete, onError }: RenderV
     
     // Simulate rendering progress
     renderIntervalRef.current = setInterval(() => {
-      onProgress(prev => {
+      setCurrentProgress(prev => {
         const newProgress = prev + Math.random() * 2; // Random progress increment
         if (newProgress >= 100) {
           setIsRendering(false);
           clearInterval(renderIntervalRef.current!);
           
           // Complete rendering
+          onProgress(100);
           onComplete({ projectName, resolution, totalTime });
           return 100;
         }
+        onProgress(newProgress);
         return newProgress;
       });
     }, 200);

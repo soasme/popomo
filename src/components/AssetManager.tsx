@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AssetCard, { type Asset } from './AssetCard';
 import AssetUploader from './AssetUploader';
 import { useAssetDB } from '@/hooks/useAssetDB';
@@ -15,20 +15,20 @@ export default function AssetManager({ isOpen, onClose }: AssetManagerProps) {
   const [isUploading, setIsUploading] = useState(false);
   const { saveAssets, loadAssets, deleteAsset } = useAssetDB();
 
-  useEffect(() => {
-    if (isOpen) {
-      handleLoadAssets();
-    }
-  }, [isOpen]);
-
-  const handleLoadAssets = async () => {
+  const handleLoadAssets = useCallback(async () => {
     try {
       const loadedAssets = await loadAssets();
       setAssets(loadedAssets);
     } catch (error) {
       console.error('Failed to load assets:', error);
     }
-  };
+  }, [loadAssets]);
+
+  useEffect(() => {
+    if (isOpen) {
+      handleLoadAssets();
+    }
+  }, [isOpen, handleLoadAssets]);
 
   const handleUpload = async (newAssets: Asset[]) => {
     setIsUploading(true);

@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
+    "deploy": "next build --turbopack && git commit -m\"ship!\" --allow-empty && git push",
     "lint": "eslint"
   },
   "dependencies": {

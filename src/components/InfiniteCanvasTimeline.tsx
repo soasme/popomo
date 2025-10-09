@@ -4,7 +4,7 @@ import { useRef, useEffect, useCallback } from 'react';
 import { createTimeline, type Timeline } from 'animejs/timeline';
 
 interface InfiniteCanvasTimelineProps {
-  children: React.ReactNode;
+  children: React.ReactNode | ((getTimeline: () => Timeline | null) => React.ReactNode);
 }
 
 function parseTimeToMilliseconds(timeString: string): number {
@@ -44,8 +44,7 @@ export default function InfiniteCanvasTimeline({ children }: InfiniteCanvasTimel
     timelineRef.current = createTimeline({
       duration,
       autoplay: false,
-      loop: false,
-      easing: 'linear'
+      loop: false
     });
   }, []);
 
