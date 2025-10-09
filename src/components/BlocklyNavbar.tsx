@@ -1,22 +1,14 @@
 'use client';
 
 import { BlocklyNavbarProps } from '@/editorTypes';
+import { BLOCKLY_CATEGORIES } from './BlocklyConst';
 
 export default function BlocklyNavbar({ 
   selectedCategory, 
   onCategorySelect, 
   categories 
 }: BlocklyNavbarProps) {
-  const defaultCategories = [
-    { name: 'Logic', color: '#5C81A6' },
-    { name: 'Loops', color: '#5CA65C' },
-    { name: 'Math', color: '#5C68A6' },
-    { name: 'Text', color: '#5CA68D' },
-    { name: 'Variables', color: '#A55B80' },
-    { name: 'Functions', color: '#995BA5' },
-  ];
-
-  const categoriesToUse = categories || defaultCategories;
+  const categoriesToUse = categories || BLOCKLY_CATEGORIES;
 
   return (
     <div className="w-24 h-full bg-gray-50 border-r border-gray-200 flex flex-col">

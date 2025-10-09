@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as Blockly from 'blockly';
 import { BlocklyProgramingAreaProps } from '@/editorTypes';
+import { DEFAULT_WORKSPACE_CONFIG } from './BlocklyConst';
 
 export default function BlocklyProgramingArea({ 
   isVisible, 
@@ -17,22 +18,13 @@ export default function BlocklyProgramingArea({
       // Initialize Blockly workspace without toolbox (since we're handling it separately)
       workspace.current = Blockly.inject(blocklyDiv.current, {
         toolbox: null, // No toolbox - we'll handle blocks via our custom components
-        zoom: {
-          controls: true,
-          wheel: true,
-          startScale: 1.0,
-          maxScale: 3,
-          minScale: 0.3,
-          scaleSpeed: 1.2,
-        },
-        trashcan: true,
+        ...DEFAULT_WORKSPACE_CONFIG,
         grid: {
           spacing: 20,
           length: 3,
           colour: '#ccc',
           snap: true
         },
-        scrollbars: true,
         horizontalLayout: false,
         toolboxPosition: 'start',
       });

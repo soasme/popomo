@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import * as Blockly from 'blockly';
 import { BlocklyBlocksProps } from '@/editorTypes';
+import { getBlocksForCategory, FLYOUT_WORKSPACE_CONFIG } from './BlocklyConst';
 
 export default function BlocklyBlocks({ 
   selectedCategory, 
@@ -10,25 +11,6 @@ export default function BlocklyBlocks({
   isVisible = true 
 }: BlocklyBlocksProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const getBlocksForCategory = (category: string) => {
-    switch (category) {
-      case 'Logic':
-        return ['controls_if', 'logic_compare', 'logic_operation', 'logic_negate', 'logic_boolean'];
-      case 'Loops':
-        return ['controls_repeat_ext', 'controls_whileUntil', 'controls_for'];
-      case 'Math':
-        return ['math_number', 'math_arithmetic', 'math_single'];
-      case 'Text':
-        return ['text', 'text_join', 'text_length'];
-      case 'Variables':
-        return ['variables_get', 'variables_set'];
-      case 'Functions':
-        return ['procedures_defnoreturn', 'procedures_callnoreturn'];
-      default:
-        return [];
-    }
-  };
 
   useEffect(() => {
     if (!containerRef.current || !selectedCategory) return;
@@ -47,13 +29,7 @@ export default function BlocklyBlocks({
         containerRef.current!.appendChild(blockDiv);
 
         // Create a mini workspace for this single block
-        const miniWorkspace = Blockly.inject(blockDiv, {
-          toolbox: null,
-          readOnly: true,
-          scrollbars: false,
-          zoom: { controls: false, wheel: false },
-          trashcan: false,
-        });
+        const miniWorkspace = Blockly.inject(blockDiv, FLYOUT_WORKSPACE_CONFIG);
 
         // Create the block
         const block = miniWorkspace.newBlock(blockType);

@@ -112,6 +112,7 @@ export interface CodeObjectSelectorProps {
 export interface BlocklyCategory {
   name: string;
   color: string;
+  blocks: string[];
 }
 
 export interface BlocklyNavbarProps {
