@@ -1,20 +1,7 @@
 'use client';
 
 import CloseButton from './CloseButton';
-
-interface Asset {
-  id: string;
-  name: string;
-  type: 'image' | 'audio';
-  size: number;
-  data: ArrayBuffer;
-  createdAt: Date;
-}
-
-interface AssetCardProps {
-  asset: Asset;
-  onDelete: (id: string) => void;
-}
+import { Asset, AssetCardProps } from '@/editorTypes';
 
 const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes';
@@ -79,4 +66,3 @@ export default function AssetCard({ asset, onDelete }: AssetCardProps) {
   );
 }
 
-export type { Asset };

@@ -4,11 +4,7 @@ import { useState, useEffect } from 'react';
 import CodePanel, { useCodeObjectSelection, CodeObjectSelector } from './CodePanel';
 import AssetsPanel from './panels/AssetsPanel';
 import SettingsPanel from './panels/SettingsPanel';
-type ActivePanel = 'settings' | 'assets' | 'blockly' | null;
-
-interface FloatingPanelProps {
-  onHelpOpen?: () => void;
-}
+import { ActivePanel, FloatingPanelProps } from '@/editorTypes';
 
 export default function FloatingPanel({ onHelpOpen }: FloatingPanelProps) {
   const [activePanel, setActivePanel] = useState<ActivePanel>(null);

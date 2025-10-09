@@ -1,11 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-
-interface HelpDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { HelpDialogProps } from '@/editorTypes';
 
 export default function HelpDialog({ isOpen, onClose }: HelpDialogProps) {
   useEffect(() => {

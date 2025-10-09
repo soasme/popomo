@@ -2,10 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import * as Blockly from 'blockly';
-
-interface BlocklyWorkspaceProps {
-  isVisible: boolean;
-}
+import { BlocklyWorkspaceProps } from '@/editorTypes';
 
 export default function BlocklyWorkspace({ isVisible }: BlocklyWorkspaceProps) {
   const blocklyDiv = useRef<HTMLDivElement>(null);

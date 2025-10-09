@@ -1,16 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
-type Resolution = '9:16' | '16:9' | '1:1';
-type FPS = 12 | 24 | 30 | 60;
-
-interface ProjectConfig {
-  projectName: string;
-  resolution: Resolution;
-  fps: FPS;
-  videoLength: string;
-}
+import { Resolution, FPS, ProjectConfig } from '@/editorTypes';
 
 const defaultConfig: ProjectConfig = {
   projectName: 'Untitled Project',

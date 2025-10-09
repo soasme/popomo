@@ -6,11 +6,7 @@ import Konva from 'konva';
 import Camera from './Camera';
 import InfiniteCanvasTimeline from './InfiniteCanvasTimeline';
 import InfiniteCanvasGrid from './InfiniteCanvasGrid';
-
-interface InfiniteCanvasProps {
-  width: number;
-  height: number;
-}
+import { InfiniteCanvasProps } from '@/editorTypes';
 
 export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);

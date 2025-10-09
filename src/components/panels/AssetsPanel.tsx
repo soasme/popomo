@@ -1,13 +1,10 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import AssetCard, { type Asset } from '../AssetCard';
+import AssetCard from '../AssetCard';
 import AssetUploader from '../AssetUploader';
 import { useAssetDB } from '@/hooks/useAssetDB';
-
-interface AssetsPanelProps {
-  isActive: boolean;
-}
+import { AssetsPanelProps, Asset } from '@/editorTypes';
 
 export default function AssetsPanel({ isActive }: AssetsPanelProps) {
   const [assets, setAssets] = useState<Asset[]>([]);
