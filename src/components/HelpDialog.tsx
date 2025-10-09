@@ -27,6 +27,7 @@ export default function HelpDialog({ isOpen, onClose }: HelpDialogProps) {
   const shortcuts = [
     { key: 'Alt + 1', description: 'Open Blockly Editor' },
     { key: 'Alt + 2', description: 'Open Assets Panel' },
+    { key: 'Alt + 3', description: 'Open Puppets Panel' },
     { key: '?', description: 'Show this help dialog' },
     { key: 'Esc', description: 'Close any open panel or dialog' },
     { key: 'Mouse Wheel', description: 'Zoom in/out on canvas' },
@@ -73,18 +74,6 @@ export default function HelpDialog({ isOpen, onClose }: HelpDialogProps) {
             ))}
           </div>
           
-          <div className="mt-6 pt-4 border-t border-gray-200">
-            <div className="text-sm text-gray-500">
-              <p className="mb-2">
-                <strong>Canvas Navigation:</strong>
-              </p>
-              <ul className="space-y-1 ml-4">
-                <li>• Use mouse wheel to zoom in and out</li>
-                <li>• Click and drag to pan around the canvas</li>
-                <li>• Default zoom is set to 50% for better overview</li>
-              </ul>
-            </div>
-          </div>
         </div>
 
         <div className="flex justify-end p-6 border-t bg-gray-50 rounded-b-lg">
