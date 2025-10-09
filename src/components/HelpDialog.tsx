@@ -27,7 +27,6 @@ export default function HelpDialog({ isOpen, onClose }: HelpDialogProps) {
   const shortcuts = [
     { key: 'Alt + 1', description: 'Open Blockly Editor' },
     { key: 'Alt + 2', description: 'Open Assets Panel' },
-    { key: 'Alt + 3', description: 'Open Puppets Panel' },
     { key: '?', description: 'Show this help dialog' },
     { key: 'Esc', description: 'Close any open panel or dialog' },
     { key: 'Mouse Wheel', description: 'Zoom in/out on canvas' },
