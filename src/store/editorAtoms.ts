@@ -1,0 +1,16 @@
+import { atom } from 'jotai';
+
+export const dimensionsAtom = atom({
+  width: 0,
+  height: 0,
+});
+
+export const isHelpOpenAtom = atom(false);
+
+export const canvasOffsetAtom = atom({ x: 0, y: 0 });
+
+export const canvasScaleAtom = atom(1);
+
+export const selectedToolAtom = atom<string | null>(null);
+
+export const currentProjectAtom = atom<string | null>(null);

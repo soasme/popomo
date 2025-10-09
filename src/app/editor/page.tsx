@@ -1,14 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useAtom } from 'jotai';
 import InfiniteCanvas from '@/components/InfiniteCanvas';
 import FloatingPanel from '@/components/FloatingPanel';
 import VideoProgress from '@/components/VideoProgress';
 import HelpDialog from '@/components/HelpDialog';
+import { dimensionsAtom, isHelpOpenAtom } from '@/store/editorAtoms';
 
 export default function Home() {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [dimensions, setDimensions] = useAtom(dimensionsAtom);
+  const [isHelpOpen, setIsHelpOpen] = useAtom(isHelpOpenAtom);
 
   useEffect(() => {
     const updateDimensions = () => {
