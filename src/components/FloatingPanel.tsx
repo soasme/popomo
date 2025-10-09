@@ -169,9 +169,21 @@ export default function FloatingPanel({ onHelpOpen }: FloatingPanelProps) {
     }
   };
 
+  const getPanelWidth = () => {
+    switch (activePanel) {
+      case 'assets':
+      case 'settings':
+      case 'puppets':
+        return 'w-[400px]';
+      case 'blockly':
+      default:
+        return 'w-[800px]';
+    }
+  };
+
   return (
     <div className="fixed top-4 left-4 z-40">
-      <div className="bg-white rounded-lg shadow-lg border border-gray-200 w-[800px] h-[600px] flex flex-col">
+      <div className={`bg-white rounded-lg shadow-lg border border-gray-200 ${getPanelWidth()} h-[600px] flex flex-col`}>
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">{getPanelTitle()}</h2>
           <button
