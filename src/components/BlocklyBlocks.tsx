@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import * as Blockly from 'blockly';
 import { BlocklyBlocksProps } from '@/editorTypes';
 import { getBlocksForCategory, FLYOUT_WORKSPACE_CONFIG } from './BlocklyConst';
+import { initializeCustomBlocks } from './BlocklyCustomBlocks';
 
 export default function BlocklyBlocks({ 
   selectedCategory, 
@@ -11,6 +12,11 @@ export default function BlocklyBlocks({
   isVisible = true 
 }: BlocklyBlocksProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Initialize custom blocks on component mount
+  useEffect(() => {
+    initializeCustomBlocks();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current || !selectedCategory) return;

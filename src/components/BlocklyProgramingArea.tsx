@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import * as Blockly from 'blockly';
 import { BlocklyProgramingAreaProps } from '@/editorTypes';
 import { DEFAULT_WORKSPACE_CONFIG } from './BlocklyConst';
+import { initializeCustomBlocks } from './BlocklyCustomBlocks';
 
 export default function BlocklyProgramingArea({ 
   isVisible, 
@@ -12,6 +13,11 @@ export default function BlocklyProgramingArea({
 }: BlocklyProgramingAreaProps) {
   const blocklyDiv = useRef<HTMLDivElement>(null);
   const workspace = useRef<Blockly.WorkspaceSvg | null>(null);
+
+  // Initialize custom blocks on component mount
+  useEffect(() => {
+    initializeCustomBlocks();
+  }, []);
 
   useEffect(() => {
     if (isVisible && blocklyDiv.current && !workspace.current) {

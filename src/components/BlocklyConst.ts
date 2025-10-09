@@ -39,6 +39,16 @@ export const BLOCKLY_CATEGORIES: BlocklyCategory[] = [
     name: 'Functions',
     color: '#995BA5',
     blocks: ['procedures_defnoreturn', 'procedures_callnoreturn']
+  },
+  {
+    name: 'Events',
+    color: '#FFAB19',
+    blocks: ['event_when_program_starts', 'event_when_cue_received', 'event_emit_cue', 'event_wait_for_cue']
+  },
+  {
+    name: 'Timing',
+    color: '#FF6B6B',
+    blocks: ['wait_seconds', 'at_timestamp']
   }
 ];
 
