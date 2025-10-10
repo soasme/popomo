@@ -17,3 +17,5 @@ export const selectedToolAtom = atom<string | null>(null);
 export const currentProjectAtom = atom<string | null>(null);
 
 export const canvasImagesAtom = atom<CanvasImage[]>([]);
+
+export const activePuppetAtom = atom<string | null>(null);

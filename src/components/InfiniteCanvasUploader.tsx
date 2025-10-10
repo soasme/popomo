@@ -5,13 +5,14 @@ import { useAtom } from 'jotai';
 import Konva from 'konva';
 import { Asset, CanvasImage, InfiniteCanvasUploaderProps } from '@/editorTypes';
 import { useAssetDB } from '@/hooks/useAssetDB';
-import { canvasImagesAtom } from '@/store/editorAtoms';
+import { canvasImagesAtom, activePuppetAtom } from '@/store/editorAtoms';
 
 export default function InfiniteCanvasUploader({ 
   stageRef
 }: InfiniteCanvasUploaderProps) {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [canvasImages, setCanvasImages] = useAtom(canvasImagesAtom);
+  const [, setActivePuppet] = useAtom(activePuppetAtom);
   const { saveAssets, loadAssets, deleteAsset } = useAssetDB();
 
   useEffect(() => {
@@ -117,6 +118,7 @@ export default function InfiniteCanvasUploader({
             };
             
             setCanvasImages(prev => [...prev, newCanvasImage]);
+            setActivePuppet(canvasImageId);
           };
           img.src = event.target?.result as string;
         };

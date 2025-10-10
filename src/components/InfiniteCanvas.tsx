@@ -1,7 +1,8 @@
 'use client';
 
 import { Stage, Layer } from 'react-konva';
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
+import { useAtom } from 'jotai';
 import Konva from 'konva';
 import Camera from './Camera';
 import InfiniteCanvasTimeline from './InfiniteCanvasTimeline';
@@ -9,11 +10,26 @@ import InfiniteCanvasGrid from './InfiniteCanvasGrid';
 import InfiniteCanvasUploader from './InfiniteCanvasUploader';
 import InfiniteCanvasShapes from './InfiniteCanvasShapes';
 import { InfiniteCanvasProps } from '@/editorTypes';
+import { activePuppetAtom } from '@/store/editorAtoms';
 
 export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(0.5);
+  const [, setActivePuppet] = useAtom(activePuppetAtom);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActivePuppet(null);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setActivePuppet]);
 
   const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
@@ -53,6 +69,12 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
     }
   }, []);
 
+  const handleStageClick = useCallback((e: Konva.KonvaEventObject<MouseEvent>) => {
+    if (e.target === stageRef.current) {
+      setActivePuppet(null);
+    }
+  }, [setActivePuppet]);
+
   return (
     <InfiniteCanvasTimeline>
       <div className="relative">
@@ -68,6 +90,8 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
           draggable={true}
           onWheel={handleWheel}
           onDragEnd={handleDragEnd}
+          onClick={handleStageClick}
+          onTap={handleStageClick}
           className="bg-gray-50"
         >
           <Layer>
