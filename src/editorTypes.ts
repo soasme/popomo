@@ -1,3 +1,5 @@
+import Konva from 'konva';
+
 // ================================
 // CODE OBJECTS
 // ================================
@@ -41,6 +43,14 @@ export interface Asset {
   size: number;
   data: ArrayBuffer;
   createdAt: Date;
+}
+
+export interface CanvasImage {
+  id: string;
+  assetId: string;
+  image: HTMLImageElement;
+  x: number;
+  y: number;
 }
 
 // ================================
@@ -90,6 +100,10 @@ export interface AssetCardProps {
 export interface InfiniteCanvasProps {
   width: number;
   height: number;
+}
+
+export interface InfiniteCanvasUploaderProps {
+  stageRef: React.RefObject<Konva.Stage>;
 }
 
 // Dialog components

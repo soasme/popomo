@@ -1,4 +1,5 @@
 import { atom } from 'jotai';
+import { CanvasImage } from '@/editorTypes';
 
 export const dimensionsAtom = atom({
   width: 0,
@@ -14,3 +15,5 @@ export const canvasScaleAtom = atom(1);
 export const selectedToolAtom = atom<string | null>(null);
 
 export const currentProjectAtom = atom<string | null>(null);
+
+export const canvasImagesAtom = atom<CanvasImage[]>([]);

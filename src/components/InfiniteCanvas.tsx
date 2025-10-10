@@ -6,6 +6,8 @@ import Konva from 'konva';
 import Camera from './Camera';
 import InfiniteCanvasTimeline from './InfiniteCanvasTimeline';
 import InfiniteCanvasGrid from './InfiniteCanvasGrid';
+import InfiniteCanvasUploader from './InfiniteCanvasUploader';
+import InfiniteCanvasShapes from './InfiniteCanvasShapes';
 import { InfiniteCanvasProps } from '@/editorTypes';
 
 export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
@@ -43,32 +45,38 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
   }, []);
 
   const handleDragEnd = useCallback((e: Konva.KonvaEventObject<DragEvent>) => {
-    setStagePos({
-      x: e.target.x(),
-      y: e.target.y(),
-    });
+    if (e.target === stageRef.current) {
+      setStagePos({
+        x: e.target.x(),
+        y: e.target.y(),
+      });
+    }
   }, []);
 
   return (
     <InfiniteCanvasTimeline>
-      <Stage
-        ref={stageRef}
-        width={width}
-        height={height}
-        x={stagePos.x}
-        y={stagePos.y}
-        scaleX={scale}
-        scaleY={scale}
-        draggable
-        onWheel={handleWheel}
-        onDragEnd={handleDragEnd}
-        className="bg-gray-50"
-      >
-        <Layer>
-          <InfiniteCanvasGrid />
-          <Camera />
-        </Layer>
-      </Stage>
+      <div className="relative">
+        <InfiniteCanvasUploader stageRef={stageRef} />
+        <Stage
+          ref={stageRef}
+          width={width}
+          height={height}
+          x={stagePos.x}
+          y={stagePos.y}
+          scaleX={scale}
+          scaleY={scale}
+          draggable={true}
+          onWheel={handleWheel}
+          onDragEnd={handleDragEnd}
+          className="bg-gray-50"
+        >
+          <Layer>
+            <InfiniteCanvasGrid />
+            <Camera />
+            <InfiniteCanvasShapes />
+          </Layer>
+        </Stage>
+      </div>
     </InfiniteCanvasTimeline>
   );
 }
