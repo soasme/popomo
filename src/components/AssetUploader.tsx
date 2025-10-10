@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import type { Asset } from './AssetCard';
+import { Asset } from '@/editorTypes';
 
 interface AssetUploaderProps {
   onUpload: (assets: Asset[]) => void;

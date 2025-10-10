@@ -11,6 +11,7 @@ import InfiniteCanvasUploader from './InfiniteCanvasUploader';
 import InfiniteCanvasShapes from './InfiniteCanvasShapes';
 import { InfiniteCanvasProps } from '@/editorTypes';
 import { activePuppetAtom } from '@/store/editorAtoms';
+import { PuppetInteractionProvider, InfiniteCanvasShapesWithContextMenu } from './puppet';
 
 export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
   const stageRef = useRef<Konva.Stage>(null);
@@ -30,6 +31,7 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [setActivePuppet]);
+
 
   const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
@@ -75,6 +77,7 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
     }
   }, [setActivePuppet]);
 
+
   return (
     <InfiniteCanvasTimeline>
       <div className="relative">
@@ -97,9 +100,11 @@ export default function InfiniteCanvas({ width, height }: InfiniteCanvasProps) {
           <Layer>
             <InfiniteCanvasGrid />
             <Camera />
-            <InfiniteCanvasShapes />
+            <InfiniteCanvasShapesWithContextMenu />
           </Layer>
         </Stage>
+        
+        <PuppetInteractionProvider />
       </div>
     </InfiniteCanvasTimeline>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import type { Asset } from '@/components/AssetCard';
+import { Asset } from '@/editorTypes';
 
 export function useAssetDB() {
   const [isLoading, setIsLoading] = useState(false);

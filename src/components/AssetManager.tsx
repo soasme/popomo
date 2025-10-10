@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import AssetCard, { type Asset } from './AssetCard';
+import AssetCard from './AssetCard';
+import { Asset } from '@/editorTypes';
 import AssetUploader from './AssetUploader';
 import { useAssetDB } from '@/hooks/useAssetDB';
 
