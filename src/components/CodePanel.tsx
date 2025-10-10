@@ -24,8 +24,10 @@ export default function CodePanel({ isVisible }: CodePanelProps) {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <BlocklyWorkspace isVisible={isVisible} />
+    <div className="w-full h-full flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-hidden">
+        <BlocklyWorkspace isVisible={isVisible} />
+      </div>
     </div>
   );
 }

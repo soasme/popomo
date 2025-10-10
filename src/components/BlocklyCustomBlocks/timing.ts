@@ -11,7 +11,7 @@ Blockly.Blocks['wait_seconds'] = {
         .appendField("seconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF6B6B');
+    this.setColour('#FFAB19');
     this.setTooltip("Wait for a specified number of seconds");
     this.setHelpUrl("");
   }
@@ -23,10 +23,24 @@ Blockly.Blocks['at_timestamp'] = {
     this.appendDummyInput()
         .appendField("At")
         .appendField(new Blockly.FieldTextInput("00:00.00"), "TIMESTAMP");
-    this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour('#FF6B6B');
+    this.setColour('#FFAB19');
     this.setTooltip("Execute at specific timestamp (mm:ss.ff format)");
+    this.setHelpUrl("");
+  }
+};
+
+// Between [mm:ss.ff] And [mm:ss.ff] block
+Blockly.Blocks['between_timestamps'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Between")
+        .appendField(new Blockly.FieldTextInput("00:00.00"), "START_TIMESTAMP")
+        .appendField("And")
+        .appendField(new Blockly.FieldTextInput("00:00.00"), "END_TIMESTAMP");
+    this.setNextStatement(true, null);
+    this.setColour('#FFAB19');
+    this.setTooltip("Execute between two timestamps (mm:ss.ff format)");
     this.setHelpUrl("");
   }
 };

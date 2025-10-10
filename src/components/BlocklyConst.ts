@@ -43,12 +43,7 @@ export const BLOCKLY_CATEGORIES: BlocklyCategory[] = [
   {
     name: 'Events',
     color: '#FFAB19',
-    blocks: ['event_when_program_starts', 'event_when_cue_received', 'event_emit_cue', 'event_wait_for_cue']
-  },
-  {
-    name: 'Timing',
-    color: '#FF6B6B',
-    blocks: ['wait_seconds', 'at_timestamp']
+    blocks: ['at_timestamp', 'between_timestamps', 'event_when_cue_received', 'event_emit_cue', 'event_wait_for_cue', 'wait_seconds']
   }
 ];
 

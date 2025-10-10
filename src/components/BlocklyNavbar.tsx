@@ -11,8 +11,8 @@ export default function BlocklyNavbar({
   const categoriesToUse = categories || BLOCKLY_CATEGORIES;
 
   return (
-    <div className="w-24 h-full bg-gray-50 border-r border-gray-200 flex flex-col">
-      <div className="p-2 bg-gray-100 border-b border-gray-200">
+    <div className="w-24 bg-gray-50 border-r border-gray-200 flex flex-col" style={{ height: '500px' }}>
+      <div className="p-2 bg-gray-100 border-b border-gray-200 flex-shrink-0">
         <h3 className="text-xs font-semibold text-gray-700 text-center">Categories</h3>
       </div>
       <div className="flex-1 overflow-y-auto">

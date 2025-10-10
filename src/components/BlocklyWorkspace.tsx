@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import BlocklyNavbar from './BlocklyNavbar';
-import BlocklyBlocks from './BlocklyBlocks';
+import BlocklyMiddleLane from './BlocklyMiddleLane';
 import BlocklyProgramingArea from './BlocklyProgramingArea';
 import { BlocklyWorkspaceProps } from '@/editorTypes';
 
@@ -11,19 +11,16 @@ export default function BlocklyWorkspace({ isVisible }: BlocklyWorkspaceProps) {
   const [selectedBlock, setSelectedBlock] = useState<string | undefined>();
 
   const handleCategorySelect = (category: string) => {
-    // Toggle category selection - if same category is clicked, deselect it
-    setSelectedCategory(selectedCategory === category ? null : category);
+    setSelectedCategory(category);
   };
 
   const handleBlockSelect = (blockType: string) => {
     setSelectedBlock(blockType);
-    // Clear the selected block after a short delay to allow for adding multiple blocks
     setTimeout(() => setSelectedBlock(undefined), 100);
   };
 
   const handleWorkspaceChange = (event: any) => {
     // Handle workspace changes if needed
-    console.log('Workspace changed:', event);
   };
 
   if (!isVisible) {
@@ -31,21 +28,20 @@ export default function BlocklyWorkspace({ isVisible }: BlocklyWorkspaceProps) {
   }
 
   return (
-    <div className="w-full h-full flex">
-      {/* Left: Category Navigation */}
+    <div className="w-full h-full flex overflow-hidden">
       <BlocklyNavbar
         selectedCategory={selectedCategory}
         onCategorySelect={handleCategorySelect}
       />
       
-      {/* Middle: Block Selection (always visible to prevent disappearing) */}
-      <BlocklyBlocks
-        selectedCategory={selectedCategory}
-        onBlockSelect={handleBlockSelect}
-        isVisible={true} // Always keep visible to fix middle lane disappearing
-      />
+      <div className="h-full overflow-hidden">
+        <BlocklyMiddleLane
+          onBlockSelect={handleBlockSelect}
+          isVisible={true}
+          scrollToCategory={selectedCategory}
+        />
+      </div>
       
-      {/* Right: Programming Area */}
       <BlocklyProgramingArea
         isVisible={true}
         onWorkspaceChange={handleWorkspaceChange}
