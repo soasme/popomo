@@ -26,10 +26,11 @@ Blockly.Blocks['event_when_program_starts'] = {
 // When Cue Received [cue] (OnCue) - Hat block with dropdown
 Blockly.Blocks['event_when_cue_received'] = {
   init: function() {
-    const dropdown = new Blockly.FieldDropdown([
-      ...DEFAULT_CUES.map(cue => [cue, cue]),
+    const options: [string, string][] = [
+      ...DEFAULT_CUES.map(cue => [cue, cue] as [string, string]),
       ['Custom...', 'CUSTOM']
-    ]);
+    ];
+    const dropdown = new Blockly.FieldDropdown(options);
     
     this.appendDummyInput()
         .appendField("When cue received")
@@ -46,10 +47,11 @@ Blockly.Blocks['event_when_cue_received'] = {
 // Emit Cue [cue] - Broadcasts to all scripts
 Blockly.Blocks['event_emit_cue'] = {
   init: function() {
-    const dropdown = new Blockly.FieldDropdown([
-      ...DEFAULT_CUES.map(cue => [cue, cue]),
+    const options: [string, string][] = [
+      ...DEFAULT_CUES.map(cue => [cue, cue] as [string, string]),
       ['Custom...', 'CUSTOM']
-    ]);
+    ];
+    const dropdown = new Blockly.FieldDropdown(options);
     
     this.appendDummyInput()
         .appendField("Emit cue")
@@ -65,10 +67,11 @@ Blockly.Blocks['event_emit_cue'] = {
 // Wait for Cue [cue] - Pauses until cue is emitted
 Blockly.Blocks['event_wait_for_cue'] = {
   init: function() {
-    const dropdown = new Blockly.FieldDropdown([
-      ...DEFAULT_CUES.map(cue => [cue, cue]),
+    const options: [string, string][] = [
+      ...DEFAULT_CUES.map(cue => [cue, cue] as [string, string]),
       ['Custom...', 'CUSTOM']
-    ]);
+    ];
+    const dropdown = new Blockly.FieldDropdown(options);
     
     this.appendDummyInput()
         .appendField("Wait for cue")

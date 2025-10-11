@@ -1,18 +1,24 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useAtom } from 'jotai';
 import * as Blockly from 'blockly';
 import { BlocklyProgramingAreaProps } from '@/editorTypes';
 import { DEFAULT_WORKSPACE_CONFIG } from './BlocklyConst';
 import { initializeCustomBlocks } from './BlocklyCustomBlocks';
+import { workspaceStatesAtom } from '@/store/editorAtoms';
 
 export default function BlocklyProgramingArea({ 
   isVisible, 
   onWorkspaceChange,
-  selectedBlock 
+  selectedBlock,
+  selectedCodeObjectId,
+  puppets = []
 }: BlocklyProgramingAreaProps) {
   const blocklyDiv = useRef<HTMLDivElement>(null);
   const workspace = useRef<Blockly.WorkspaceSvg | null>(null);
+  const [workspaceStates] = useAtom(workspaceStatesAtom);
+  const isLoadingRef = useRef(false);
 
   // Initialize custom blocks on component mount
   useEffect(() => {
@@ -23,7 +29,7 @@ export default function BlocklyProgramingArea({
     if (isVisible && blocklyDiv.current && !workspace.current) {
       // Initialize Blockly workspace without toolbox (since we're handling it separately)
       workspace.current = Blockly.inject(blocklyDiv.current, {
-        toolbox: null, // No toolbox - we'll handle blocks via our custom components
+        // No toolbox - we'll handle blocks via our custom components
         ...DEFAULT_WORKSPACE_CONFIG,
         grid: {
           spacing: 20,
@@ -35,10 +41,7 @@ export default function BlocklyProgramingArea({
         toolboxPosition: 'start',
       });
 
-      // Add change listener
-      if (onWorkspaceChange) {
-        workspace.current.addChangeListener(onWorkspaceChange);
-      }
+      // Change listener will be added in a separate effect to handle updates
 
       // Trigger resize after a short delay to ensure proper rendering
       setTimeout(() => {
@@ -81,6 +84,75 @@ export default function BlocklyProgramingArea({
       }, 100);
     }
   }, [isVisible]);
+
+  // Manage change listener - update when callback changes
+  useEffect(() => {
+    if (!workspace.current || !onWorkspaceChange) {
+      return;
+    }
+
+    console.log('🔗 Adding new change listener for updated callback');
+
+    const wrappedChangeHandler = (event: unknown) => {
+      if (!isLoadingRef.current) {
+        console.log('🔄 Workspace changed, calling handler');
+        onWorkspaceChange(event);
+      } else {
+        console.log('🚫 Workspace changed during loading, ignoring');
+      }
+    };
+
+    // Add the change listener
+    workspace.current.addChangeListener(wrappedChangeHandler);
+
+    // Cleanup: remove the listener when effect re-runs or component unmounts
+    return () => {
+      console.log('🗑️ Removing old change listener');
+      if (workspace.current) {
+        workspace.current.removeChangeListener(wrappedChangeHandler);
+      }
+    };
+  }, [onWorkspaceChange]); // Re-run when callback changes
+
+  // Load workspace state when selectedCodeObjectId changes
+  useEffect(() => {
+    if (!workspace.current || !selectedCodeObjectId) {
+      console.log('❌ Cannot load - missing workspace or selectedCodeObjectId');
+      return;
+    }
+
+    // Get the saved state for this code object
+    const savedState = workspaceStates[selectedCodeObjectId];
+    console.log('🔍 LOADING workspace state for', selectedCodeObjectId);
+    console.log('📦 Available workspace states:', Object.keys(workspaceStates));
+    console.log('💾 Saved state for', selectedCodeObjectId, ':', savedState);
+    
+    // Set loading flag to prevent change handler during load
+    isLoadingRef.current = true;
+    
+    if (savedState) {
+      try {
+        console.log('🟢 Loading saved blocks for', selectedCodeObjectId);
+        // Clear the workspace first
+        workspace.current.clear();
+        // Load the saved state
+        Blockly.serialization.workspaces.load(savedState, workspace.current);
+        console.log('✅ Successfully loaded blocks for', selectedCodeObjectId);
+      } catch (error) {
+        console.warn('❌ Failed to load workspace state for', selectedCodeObjectId, error);
+      }
+    } else {
+      // No saved state, clear the workspace
+      console.log('🟡 No saved state for', selectedCodeObjectId, '- clearing workspace');
+      workspace.current.clear();
+    }
+    
+    // Re-enable change handler after a short delay
+    setTimeout(() => {
+      isLoadingRef.current = false;
+      console.log('🔓 Re-enabled change handler for', selectedCodeObjectId);
+    }, 100);
+  }, [selectedCodeObjectId, workspaceStates, puppets]);
 
   // Handle drop events for dragged blocks
   useEffect(() => {

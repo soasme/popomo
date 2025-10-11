@@ -22,10 +22,10 @@ export default function LandingPage() {
             Make sticker-puppet videos by coding like Scratch. No timelines. No keyframes.
           </h1>
           <p className="text-2xl text-gray-700 mb-8">
-            Perfect for teachers and kid creators. Move characters with blocks, hit "Play," export a lesson in minutes.
+            Perfect for teachers and kid creators. Move characters with blocks, hit &quot;Play,&quot; export a lesson in minutes.
           </p>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLScA3ILbcqbZiymU8CX0Vem579nE62BZzLq33qs4SBNJNgn36A/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors">
-            Join the Early Crew → (first 100 testers)
+            For K-2 Teachers → Get early access
           </a>
         </header>
 

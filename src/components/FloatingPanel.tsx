@@ -127,7 +127,7 @@ export default function FloatingPanel({ onHelpOpen }: FloatingPanelProps) {
   const renderPanelContent = () => {
     switch (activePanel) {
       case 'blockly':
-        return <CodePanel isVisible={true} />;
+        return <CodePanel isVisible={true} selectedCodeObjectId={selectedCodeObjectId} />;
       case 'assets':
         return <AssetsPanel isActive={true} />;
       case 'settings':

@@ -57,7 +57,6 @@ export default function InfiniteCanvasShapes() {
                 listening={false}
               />
             )}
-            {/* eslint-disable-next-line react/jsx-pascal-case */}
             <KonvaImage
               image={imageData.image}
               x={0}

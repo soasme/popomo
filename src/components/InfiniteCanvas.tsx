@@ -8,7 +8,6 @@ import Camera from './Camera';
 import InfiniteCanvasTimeline from './InfiniteCanvasTimeline';
 import InfiniteCanvasGrid from './InfiniteCanvasGrid';
 import InfiniteCanvasUploader from './InfiniteCanvasUploader';
-import InfiniteCanvasShapes from './InfiniteCanvasShapes';
 import { InfiniteCanvasProps } from '@/editorTypes';
 import { activePuppetAtom } from '@/store/editorAtoms';
 import { PuppetInteractionProvider, InfiniteCanvasShapesWithContextMenu } from './puppet';

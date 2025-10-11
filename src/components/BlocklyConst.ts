@@ -90,7 +90,6 @@ export const DEFAULT_WORKSPACE_CONFIG = {
 
 // Flyout workspace configuration (for block palette)
 export const FLYOUT_WORKSPACE_CONFIG = {
-  toolbox: null,
   readOnly: true,
   scrollbars: false,
   zoom: { controls: false, wheel: false },

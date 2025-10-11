@@ -43,3 +43,6 @@ export const renameDialogAtom = atom<{
   puppetId: null,
   currentName: '',
 });
+
+// Store workspace state (JSON serialization) for each code object
+export const workspaceStatesAtom = atom<Record<string, object>>({});

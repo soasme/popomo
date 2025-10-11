@@ -1,7 +1,7 @@
 'use client';
 
 import CloseButton from './CloseButton';
-import { Asset, AssetCardProps } from '@/editorTypes';
+import { AssetCardProps } from '@/editorTypes';
 
 const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return '0 Bytes';

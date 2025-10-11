@@ -27,6 +27,7 @@ export interface Puppet extends CodeObject {
   scale: number;
   assetId?: string;
   visible: boolean;
+  code?: string;
 }
 
 // Union type for all possible code objects
@@ -80,10 +81,12 @@ export interface FloatingPanelProps {
 
 export interface CodePanelProps {
   isVisible: boolean;
+  selectedCodeObjectId?: string;
 }
 
 export interface BlocklyWorkspaceProps {
   isVisible: boolean;
+  selectedCodeObjectId?: string;
 }
 
 export interface AssetsPanelProps {
@@ -103,7 +106,7 @@ export interface InfiniteCanvasProps {
 }
 
 export interface InfiniteCanvasUploaderProps {
-  stageRef: React.RefObject<Konva.Stage>;
+  stageRef: React.RefObject<Konva.Stage | null>;
 }
 
 // Dialog components
@@ -143,6 +146,8 @@ export interface BlocklyBlocksProps {
 
 export interface BlocklyProgramingAreaProps {
   isVisible: boolean;
-  onWorkspaceChange?: (event: any) => void;
+  onWorkspaceChange?: (event: unknown) => void;
   selectedBlock?: string;
+  selectedCodeObjectId?: string;
+  puppets?: Puppet[];
 }

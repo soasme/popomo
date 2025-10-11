@@ -116,7 +116,7 @@ export default function BlocklyBlockPalette({
         containerRef.current.scrollTop = 0;
         
         // Trigger a reflow
-        containerRef.current.offsetHeight;
+        void containerRef.current.offsetHeight;
       }
     };
 

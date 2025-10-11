@@ -1,8 +1,7 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAtom } from 'jotai';
-import Konva from 'konva';
 import { Asset, CanvasImage, InfiniteCanvasUploaderProps } from '@/editorTypes';
 import { useAssetDB } from '@/hooks/useAssetDB';
 import { canvasImagesAtom, activePuppetAtom } from '@/store/editorAtoms';
@@ -11,7 +10,7 @@ export default function InfiniteCanvasUploader({
   stageRef
 }: InfiniteCanvasUploaderProps) {
   const [assets, setAssets] = useState<Asset[]>([]);
-  const [canvasImages, setCanvasImages] = useAtom(canvasImagesAtom);
+  const [, setCanvasImages] = useAtom(canvasImagesAtom);
   const [, setActivePuppet] = useAtom(activePuppetAtom);
   const { saveAssets, loadAssets, deleteAsset } = useAssetDB();
 
@@ -27,57 +26,7 @@ export default function InfiniteCanvasUploader({
     loadExistingAssets();
   }, [loadAssets]);
 
-
-
-  useEffect(() => {
-    const handleGlobalDragOver = (e: DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-    };
-
-    const handleGlobalDrop = (e: DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      const stage = stageRef.current;
-      if (!stage) return;
-
-      const files = Array.from(e.dataTransfer?.files || []);
-      const pngFiles = files.filter(file => file.type === 'image/png');
-
-      if (pngFiles.length === 0) {
-        return;
-      }
-
-      const stageContainer = stage.container();
-      const stageRect = stageContainer.getBoundingClientRect();
-      
-      if (e.clientX >= stageRect.left && e.clientX <= stageRect.right && 
-          e.clientY >= stageRect.top && e.clientY <= stageRect.bottom) {
-        
-        const stagePos = {
-          x: e.clientX - stageRect.left,
-          y: e.clientY - stageRect.top
-        };
-
-        const stageTransform = stage.getAbsoluteTransform().copy();
-        stageTransform.invert();
-        const canvasPos = stageTransform.point(stagePos);
-
-        handleDropFiles(pngFiles, canvasPos);
-      }
-    };
-
-    document.addEventListener('dragover', handleGlobalDragOver);
-    document.addEventListener('drop', handleGlobalDrop);
-
-    return () => {
-      document.removeEventListener('dragover', handleGlobalDragOver);
-      document.removeEventListener('drop', handleGlobalDrop);
-    };
-  }, [stageRef, assets, saveAssets, deleteAsset]);
-
-  const handleDropFiles = async (pngFiles: File[], canvasPos: { x: number; y: number }) => {
+  const handleDropFiles = useCallback(async (pngFiles: File[], canvasPos: { x: number; y: number }) => {
     const assetsToSave: Asset[] = [];
 
     for (let index = 0; index < pngFiles.length; index++) {
@@ -137,7 +86,55 @@ export default function InfiniteCanvasUploader({
         console.error('Failed to save assets:', error);
       }
     }
-  };
+  }, [assets, deleteAsset, saveAssets, setCanvasImages, setActivePuppet]);
+
+  useEffect(() => {
+    const handleGlobalDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const handleGlobalDrop = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const stage = stageRef.current;
+      if (!stage) return;
+
+      const files = Array.from(e.dataTransfer?.files || []);
+      const pngFiles = files.filter(file => file.type === 'image/png');
+
+      if (pngFiles.length === 0) {
+        return;
+      }
+
+      const stageContainer = stage.container();
+      const stageRect = stageContainer.getBoundingClientRect();
+      
+      if (e.clientX >= stageRect.left && e.clientX <= stageRect.right && 
+          e.clientY >= stageRect.top && e.clientY <= stageRect.bottom) {
+        
+        const stagePos = {
+          x: e.clientX - stageRect.left,
+          y: e.clientY - stageRect.top
+        };
+
+        const stageTransform = stage.getAbsoluteTransform().copy();
+        stageTransform.invert();
+        const canvasPos = stageTransform.point(stagePos);
+
+        handleDropFiles(pngFiles, canvasPos);
+      }
+    };
+
+    document.addEventListener('dragover', handleGlobalDragOver);
+    document.addEventListener('drop', handleGlobalDrop);
+
+    return () => {
+      document.removeEventListener('dragover', handleGlobalDragOver);
+      document.removeEventListener('drop', handleGlobalDrop);
+    };
+  }, [stageRef, assets, saveAssets, deleteAsset, handleDropFiles]);
 
   return null;
 }
