@@ -19,12 +19,10 @@ export default function LandingPage() {
         {/* Header */}
         <header className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Program Your Puppets Alive
+            Make sticker-puppet videos by coding like Scratch. No timelines. No keyframes.
           </h1>
-          <p className="text-2xl text-gray-700 mb-2">Tell stories using stickers.</p>
-          <p className="text-lg text-gray-600 mb-8">
-            Bring stickers to life with playful, Scratch-style blocks.<br />
-            Make puppet-show videos like PokéRhyme or LaDaDee(PMV) — no rigging, no keyframes.
+          <p className="text-2xl text-gray-700 mb-8">
+            Perfect for teachers and kid creators. Move characters with blocks, hit "Play," export a lesson in minutes.
           </p>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLScA3ILbcqbZiymU8CX0Vem579nE62BZzLq33qs4SBNJNgn36A/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors">
             Join the Early Crew → (first 100 testers)
