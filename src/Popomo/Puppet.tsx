@@ -6,6 +6,8 @@ export const puppetSchema = z.object({
   image: z.string(),
   pos: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Position must be in format 'x,y,z'"),
   rotate: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Rotation must be in format 'x,y,z'").default("0,0,0"),
+  enterRotate: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Enter rotation must be in format 'x,y,z'").default("0,0,0"),
+  exitRotate: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Exit rotation must be in format 'x,y,z'").default("0,0,0"),
   enterDuration: z.number().positive(),
   enterEase: z.string(),
   enterFrom: z.enum(['bottom', 'top', 'left', 'right']),
@@ -54,6 +56,8 @@ export const Puppet: React.FC<PuppetProps> = ({
   image,
   pos,
   rotate,
+  enterRotate,
+  exitRotate,
   enterDuration,
   enterEase,
   enterFrom,
@@ -71,6 +75,10 @@ export const Puppet: React.FC<PuppetProps> = ({
   // Parse rotation
   const [rotateX, rotateY, rotateZ] = rotate.split(',').map(Number);
   
+  // Parse enter and exit rotations
+  const [enterRotateX, enterRotateY, enterRotateZ] = enterRotate.split(',').map(Number);
+  const [exitRotateX, exitRotateY, exitRotateZ] = exitRotate.split(',').map(Number);
+  
   // Calculate frame ranges
   const enterFrames = Math.round(enterDuration * videoConfig.fps);
   const exitStartFrame = videoConfig.durationInFrames - Math.round(exitDuration * videoConfig.fps);
@@ -85,10 +93,13 @@ export const Puppet: React.FC<PuppetProps> = ({
   const exitToX = targetX + exitToPos.x;
   const exitToY = targetY + exitToPos.y;
   
-  // Calculate current position
+  // Calculate current position and rotation
   let currentX = targetX;
   let currentY = targetY;
   let currentZ = targetZ;
+  let currentRotateX = rotateX;
+  let currentRotateY = rotateY;
+  let currentRotateZ = rotateZ;
   
   if (frame < enterFrames) {
     // Enter animation
@@ -106,6 +117,28 @@ export const Puppet: React.FC<PuppetProps> = ({
       enterProgress,
       [0, 1],
       [enterFromY, targetY],
+      enterEasing
+    );
+    
+    // Interpolate rotation from enterRotate to target rotate
+    currentRotateX = interpolate(
+      enterProgress,
+      [0, 1],
+      [enterRotateX, rotateX],
+      enterEasing
+    );
+    
+    currentRotateY = interpolate(
+      enterProgress,
+      [0, 1],
+      [enterRotateY, rotateY],
+      enterEasing
+    );
+    
+    currentRotateZ = interpolate(
+      enterProgress,
+      [0, 1],
+      [enterRotateZ, rotateZ],
       enterEasing
     );
     
@@ -127,6 +160,28 @@ export const Puppet: React.FC<PuppetProps> = ({
       [targetY, exitToY],
       exitEasing
     );
+    
+    // Interpolate rotation from target rotate to exitRotate
+    currentRotateX = interpolate(
+      exitProgress,
+      [0, 1],
+      [rotateX, exitRotateX],
+      exitEasing
+    );
+    
+    currentRotateY = interpolate(
+      exitProgress,
+      [0, 1],
+      [rotateY, exitRotateY],
+      exitEasing
+    );
+    
+    currentRotateZ = interpolate(
+      exitProgress,
+      [0, 1],
+      [rotateZ, exitRotateZ],
+      exitEasing
+    );
   }
   
   return (
@@ -136,7 +191,7 @@ export const Puppet: React.FC<PuppetProps> = ({
         left: currentX,
         top: currentY,
         transformStyle: 'preserve-3d',
-        transform: `translate(-50%, -50%) translateZ(${currentZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
+        transform: `translate(-50%, -50%) translateZ(${currentZ}px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) rotateZ(${currentRotateZ}deg) scale(${scale})`,
       }}
     >
       <Img src={staticFile(image)} />
