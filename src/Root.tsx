@@ -68,7 +68,8 @@ export const RemotionRoot: React.FC = () => {
         schema={puppetSchema}
         defaultProps={{
           image: "puppy.png",
-          pos: "960,540",
+          pos: "960,540,0",
+          rotate: "0,0,0",
           scale: 1.0,
           enterDuration: 0.5,
           enterEase: "easeOut",

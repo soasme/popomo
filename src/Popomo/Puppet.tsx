@@ -4,7 +4,8 @@ import { z } from 'zod';
 
 export const puppetSchema = z.object({
   image: z.string(),
-  pos: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Position must be in format 'x,y'"),
+  pos: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Position must be in format 'x,y,z'"),
+  rotate: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$/, "Rotation must be in format 'x,y,z'").default("0,0,0"),
   enterDuration: z.number().positive(),
   enterEase: z.string(),
   enterFrom: z.enum(['bottom', 'top', 'left', 'right']),
@@ -52,19 +53,23 @@ const getOffsetPosition = (direction: 'bottom' | 'top' | 'left' | 'right', video
 export const Puppet: React.FC<PuppetProps> = ({
   image,
   pos,
+  rotate,
   enterDuration,
   enterEase,
   enterFrom,
   exitDuration,
   exitEase,
   exitTo,
-  scale = 1.0,
+  scale,
 }) => {
   const frame = useCurrentFrame();
   const videoConfig = useVideoConfig();
   
   // Parse position
-  const [targetX, targetY] = pos.split(',').map(Number);
+  const [targetX, targetY, targetZ] = pos.split(',').map(Number);
+  
+  // Parse rotation
+  const [rotateX, rotateY, rotateZ] = rotate.split(',').map(Number);
   
   // Calculate frame ranges
   const enterFrames = Math.round(enterDuration * videoConfig.fps);
@@ -83,6 +88,7 @@ export const Puppet: React.FC<PuppetProps> = ({
   // Calculate current position
   let currentX = targetX;
   let currentY = targetY;
+  let currentZ = targetZ;
   
   if (frame < enterFrames) {
     // Enter animation
@@ -129,7 +135,8 @@ export const Puppet: React.FC<PuppetProps> = ({
         position: 'absolute',
         left: currentX,
         top: currentY,
-        transform: `translate(-50%, -50%) scale(${scale})`, // Center the image on the position and apply scale
+        transformStyle: 'preserve-3d',
+        transform: `translate(-50%, -50%) translateZ(${currentZ}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
       }}
     >
       <Img src={staticFile(image)} />
