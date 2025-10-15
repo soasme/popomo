@@ -6,11 +6,7 @@ export const backgroundImageSchema = z.object({
 	background: z.string(),
 });
 
-interface BackgroundImageProps {
-	background: string;
-}
-
-export const BackgroundImage: React.FC<BackgroundImageProps> = ({ background }) => {
+export const BackgroundImage: React.FC<z.infer<typeof backgroundImageSchema>> = ({ background }) => {
 	// If background starts with #, treat it as a color
 	if (background.startsWith('#')) {
 		return (

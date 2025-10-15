@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { BackgroundImage, backgroundImageSchema } from "./Popomo/BackgroundImage";
+import { Puppet, puppetSchema } from "./Popomo/Puppet";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -53,7 +54,28 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         schema={backgroundImageSchema}
         defaultProps={{
-          background: "#FF6B6B",
+          background: "#87CEEB",
+        }}
+      />
+
+      <Composition
+        id="Puppet"
+        component={Puppet}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={puppetSchema}
+        defaultProps={{
+          image: "puppy.png",
+          pos: "960,540",
+          scale: 1.0,
+          enterDuration: 0.5,
+          enterEase: "easeOut",
+          enterFrom: "bottom" as const,
+          exitDuration: 0.5,
+          exitEase: "easeIn",
+          exitTo: "bottom" as const,
         }}
       />
     </>
