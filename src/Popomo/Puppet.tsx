@@ -83,7 +83,6 @@ export const Puppet: React.FC<PuppetProps> = ({
   // Calculate current position
   let currentX = targetX;
   let currentY = targetY;
-  let opacity = 1;
   
   if (frame < enterFrames) {
     // Enter animation
@@ -104,13 +103,6 @@ export const Puppet: React.FC<PuppetProps> = ({
       enterEasing
     );
     
-    // Fade in during enter animation
-    opacity = interpolate(
-      enterProgress,
-      [0, 0.3],
-      [0, 1],
-      { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-    );
   } else if (frame >= exitStartFrame) {
     // Exit animation
     const exitProgress = (frame - exitStartFrame) / (videoConfig.durationInFrames - exitStartFrame);
@@ -129,14 +121,6 @@ export const Puppet: React.FC<PuppetProps> = ({
       [targetY, exitToY],
       exitEasing
     );
-    
-    // Fade out during exit animation
-    opacity = interpolate(
-      exitProgress,
-      [0.7, 1],
-      [1, 0],
-      { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-    );
   }
   
   return (
@@ -145,7 +129,6 @@ export const Puppet: React.FC<PuppetProps> = ({
         position: 'absolute',
         left: currentX,
         top: currentY,
-        opacity,
         transform: `translate(-50%, -50%) scale(${scale})`, // Center the image on the position and apply scale
       }}
     >
