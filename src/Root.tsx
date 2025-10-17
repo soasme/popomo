@@ -8,6 +8,7 @@ import { SlideInPuppet, slideInPuppetSchema } from "./Popomo/SlideInPuppet";
 import { SlideOutPuppet, slideOutPuppetSchema } from "./Popomo/SlideOutPuppet";
 import { BeatPuppet, beatPuppetSchema } from "./Popomo/BeatPuppet";
 import { ShakePuppet, shakePuppetSchema } from "./Popomo/ShakePuppet";
+import { SpringBouncePuppet, springBouncePuppetSchema } from "./Popomo/SpringBouncePuppet";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -141,6 +142,25 @@ export const RemotionRoot: React.FC = () => {
           bpm: 120,
           speed: 1.0,
           distance: 50,
+          scale: 1.0,
+        }}
+      />
+
+      <Composition
+        id="SpringBouncePuppet"
+        component={SpringBouncePuppet}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={springBouncePuppetSchema}
+        defaultProps={{
+          image: "puppy.png",
+          pos: "960,540,0",
+          rotate: "0,0,0",
+          axis: "x" as const,
+          distance: 50,
+          duration: 2.5,
           scale: 1.0,
         }}
       />
