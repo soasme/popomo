@@ -7,6 +7,7 @@ import { Puppet, puppetSchema } from "./Popomo/Puppet";
 import { SlideInPuppet, slideInPuppetSchema } from "./Popomo/SlideInPuppet";
 import { SlideOutPuppet, slideOutPuppetSchema } from "./Popomo/SlideOutPuppet";
 import { BeatPuppet, beatPuppetSchema } from "./Popomo/BeatPuppet";
+import { ShakePuppet, shakePuppetSchema } from "./Popomo/ShakePuppet";
 
 // Each <Composition> is an entry in the sidebar!
 
