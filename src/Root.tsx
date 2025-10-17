@@ -4,6 +4,8 @@ import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 import { BackgroundImage, backgroundImageSchema } from "./Popomo/BackgroundImage";
 import { Puppet, puppetSchema } from "./Popomo/Puppet";
+import { SlideInPuppet, slideInPuppetSchema } from "./Popomo/SlideInPuppet";
+import { SlideOutPuppet, slideOutPuppetSchema } from "./Popomo/SlideOutPuppet";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -79,6 +81,46 @@ export const RemotionRoot: React.FC = () => {
           exitDuration: 0.5,
           exitEase: "easeIn",
           exitTo: "bottom" as const,
+        }}
+      />
+
+      <Composition
+        id="SlideInPuppet"
+        component={SlideInPuppet}
+        durationInFrames={30}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={slideInPuppetSchema}
+        defaultProps={{
+          image: "puppy.png",
+          pos: "960,540,0",
+          rotate: "0,0,0",
+          enterRotate: "0,0,0",
+          scale: 1.0,
+          duration: 0.5,
+          ease: "easeOut",
+          from: "bottom" as const,
+        }}
+      />
+
+      <Composition
+        id="SlideOutPuppet"
+        component={SlideOutPuppet}
+        durationInFrames={30}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={slideOutPuppetSchema}
+        defaultProps={{
+          image: "puppy.png",
+          pos: "960,540,0",
+          rotate: "0,0,0",
+          exitRotate: "0,0,0",
+          scale: 1.0,
+          duration: 0.5,
+          ease: "easeIn",
+          to: "bottom" as const,
         }}
       />
     </>
