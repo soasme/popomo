@@ -6,6 +6,7 @@ import { BackgroundImage, backgroundImageSchema } from "./Popomo/BackgroundImage
 import { Puppet, puppetSchema } from "./Popomo/Puppet";
 import { SlideInPuppet, slideInPuppetSchema } from "./Popomo/SlideInPuppet";
 import { SlideOutPuppet, slideOutPuppetSchema } from "./Popomo/SlideOutPuppet";
+import { BeatPuppet, beatPuppetSchema } from "./Popomo/BeatPuppet";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -121,6 +122,25 @@ export const RemotionRoot: React.FC = () => {
           duration: 0.5,
           ease: "easeIn",
           to: "bottom" as const,
+        }}
+      />
+
+      <Composition
+        id="BeatPuppet"
+        component={BeatPuppet}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={beatPuppetSchema}
+        defaultProps={{
+          image: "puppy.png",
+          pos: "960,540,0",
+          rotate: "0,0,0",
+          bpm: 120,
+          speed: 1.0,
+          distance: 50,
+          scale: 1.0,
         }}
       />
     </>
